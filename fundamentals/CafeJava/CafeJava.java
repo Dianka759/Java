@@ -32,8 +32,8 @@ public class CafeJava {
         System.out.println(customer1 + pendingMessage);
 
         // Noah's order
-        System.out.println("Noah's Order:");
-        if (isReadyOrder4 == true){
+        System.out.println("\n Noah's Order:");
+        if (isReadyOrder4){
         System.out.println(customer4 + readyMessage);
         System.out.println(displayTotalMessage + frappucinoPrice);
         }
@@ -44,7 +44,7 @@ public class CafeJava {
         // Sam's order 
         System.out.println("Sam's Order:");
         System.out.println(displayTotalMessage + (lattePrice + lattePrice));
-        if (isReadyOrder2 == true) {
+        if (isReadyOrder2) {
         System.out.println(customer2 + readyMessage);
         }
         else {
