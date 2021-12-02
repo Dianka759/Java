@@ -15,7 +15,7 @@ public class BankAccount {
         this.accountNumber = randomAccountNumber();
     } 
 
-//  ------------------ Will come back to this -----------------------------//
+//  ------------------ Did it!!! ...ish-------------------------//
 
     private int randomAccountNumber() {
         Random rando = new Random();
@@ -93,9 +93,9 @@ public class BankAccount {
 
     //Create a method to see the total money from the checking and saving.
     public void getTotal() {
-		System.out.println("Checking amount: " + checking);
-		System.out.println("Savings amount: " + savings);
-		System.out.println("The total in both is: " + (checking + savings));
+		System.out.println("Checking amount: $" + checking);
+		System.out.println("Savings amount: $" + savings);
+		System.out.println("The total in both is: $" + (checking + savings));
     }
 
 
