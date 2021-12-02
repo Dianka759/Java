@@ -59,7 +59,9 @@ public class BankAccount {
 			savings += amountDeposit;
 			Total += amountDeposit;
 			System.out.println("Savings deposit amount: $" + String.format("%.2f", savings));
-		}
+		} else {
+            
+        } 
     }
 
     //Create a method to withdraw money from one balance. 
