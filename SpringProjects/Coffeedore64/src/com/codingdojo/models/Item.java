@@ -1,4 +1,4 @@
-package com.codingdojo.models;
+//package com.codingdojo.models;
 
 public class Item {
     

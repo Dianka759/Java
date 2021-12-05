@@ -1,4 +1,4 @@
-package com.codingdojo.models;
+//package com.codingdojo.models;
 
 public class CoffeeKioskTest {
 
@@ -12,5 +12,8 @@ public class CoffeeKioskTest {
 		test.addMenuItem("Cappuccino", 3.00);
 		test.addMenuItem("Muffin", 4.00);
 		test.newOrder();
+		
+		test.addMenuItemByInput();
+		test.displayMenu();
 	}
 }
