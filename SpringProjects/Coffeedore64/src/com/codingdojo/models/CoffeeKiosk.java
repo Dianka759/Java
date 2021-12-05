@@ -21,7 +21,7 @@ public class CoffeeKiosk {
 	     for(int i = 0; i < menu.size(); i++) {
 	            Item item = menu.get(i);
                 System.out.println("----------------------------");
-	            System.out.println(item.getIndex() + " " + item.getItemName() + " -- $" + item.getItemPrice());
+	        System.out.println(item.getIndex() + " " + item.getItemName() + " -- $" + item.getItemPrice());
                 System.out.println("----------------------------");
 	        }
 	}
@@ -69,33 +69,33 @@ public class CoffeeKiosk {
 	 
 	 //Create a method that lets an admin add menu items manually, 
 	 //using what you now know about getting user input.
-	  public void addMenuItemByInput(){
-		    String addNewOrder = "y";
+	 public void addMenuItemByInput(){
+	    String addNewOrder = "y";
 		    //while user wants to input more orders, do the following;
 		    while(addNewOrder.equals("y")) {
 		      System.out.println("Enter the name of the new product:");
 		      String itemName = System.console().readLine();
 		      //if the input is empty, tell them to input valid name
 		      while(itemName.isEmpty()){
-		        System.out.println("Please enter a valid name:");
-		        itemName = System.console().readLine();
+			System.out.println("Please enter a valid name:");
+			itemName = System.console().readLine();
 		      } 
 		      System.out.println("Enter the price of the new product:");
 		      String itemPrice = System.console().readLine();
 		      //if the input is empty, tell them to input a valid price
 		      while(itemPrice.isEmpty()){
-		        System.out.println("Please enter a valid price:");
-		        itemPrice = System.console().readLine();
+			System.out.println("Please enter a valid price:");
+			itemPrice = System.console().readLine();
 		      }
 		      //The console input will be of type String, so have to convert to double
 		      double price =  Double.parseDouble(itemPrice);
-		      
+
 		      //adding the inputed name and price into the menu.
 		      addMenuItem(itemName, price);
 		      System.out.println("Do you want to add another product? y/n");
 		      addNewOrder = System.console().readLine().toLowerCase(); 
 		      //turn to lower case in case the user inputs "Y" or "N"
-		    }
-		  }
+			}
+	}
 
 }
