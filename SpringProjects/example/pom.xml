@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.codingdojo.daikichipathvariables</groupId>
-	<artifactId>fruityloops</artifactId>
+	<artifactId>example</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
-	<name>fruityloops</name>
+	<name>example</name>
 	<description>Fruity Loops</description>
 	<properties>
 		<java.version>1.8</java.version>
@@ -39,16 +39,6 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
-			
-		<!-- allow for us to use the JSTL library and an embedded tomcat server to render our JSP pages -->
-		<dependency>
-             <groupId>org.apache.tomcat.embed</groupId>
-             <artifactId>tomcat-embed-jasper</artifactId>
-        </dependency>
-        <dependency>
-                <groupId>javax.servlet</groupId>
-                <artifactId>jstl</artifactId>
-        </dependency>
 	</dependencies>
 
 	<build>
