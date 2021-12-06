@@ -14,7 +14,7 @@ public class CounterController {
 	public String index(HttpSession session) {
         // If the count is not already in session
         if (session.getAttribute("count") == null) {
-        	session.setAttribute("count", 0);
+        	session.setAttribute("count", 1);
         }
         else {
             // increment the count by 1 using getAttribute and setAttribute
@@ -35,7 +35,7 @@ public class CounterController {
 	@RequestMapping("/addTwo")
 	public String addTwo(HttpSession session) {
         if (session.getAttribute("count") == null) {
-        	session.setAttribute("count", 0);
+        	session.setAttribute("count", 2);
         } else {
 		Integer currentCount = (Integer) session.getAttribute("count");
 		currentCount += 2;
@@ -46,7 +46,8 @@ public class CounterController {
 	
 	@RequestMapping(value="/reset", method=RequestMethod.POST)
 	public String reset(HttpSession session) {
-        session.setAttribute("count", 0);
+//        session.setAttribute("count", 0);
+		session.invalidate(); 
         return "redirect:/count";
 	}
 }
