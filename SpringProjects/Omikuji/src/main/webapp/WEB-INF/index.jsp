@@ -15,14 +15,16 @@
             <form action="/submitFortune" method="post">
                 <div class="mb-3">
                     <label class="form-label">Pick any number from 5 to 25:</label>
-                    <input class="form-control" type="number" name="number">
+                    <input class="form-control" type="number" name="number" min="5" max="25">
                 </div>
                 <div class="mb-3">
                     <label class="form-label">Enter the name of any city:</label>
                     <input class="form-control" type="text" name="city">
                 </div>
+                <div class="mb-3">
                 <label class="form-label">Enter the name of any real person:</label>
                 <input class="form-control" type="text" name="person">
+                </div>
                 <div class="mb-3">
                     <label class="form-label">Enter professional endeavor or hobby:</label>
                     <input class="form-control" type="text" name="hobby">
@@ -35,8 +37,11 @@
                     <label class="form-label">Say something nice to someone:</label>
                     <textarea class="form-control" name="somethingNice"></textarea>
                 </div>
+                <div class="mb-3">
+                <p>Send and show a friend!</p>
+                </div>
                 <div class="text-center">
-                    <input class="btn btn-danger" type="submit">
+                    <input class="btn btn-danger" type="submit" value="Send!">
                 </div>
             </form>
         </div>

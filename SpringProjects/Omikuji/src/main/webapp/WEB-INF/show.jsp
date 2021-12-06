@@ -9,18 +9,19 @@
             <title>Omikuji Fortune</title>
             <style>
                 .container{background: blueviolet;}
+                span{color:rgb(24, 24, 163);}
             </style>
         </head>
 
         <body class="bg-dark text-light">
             <div class="mt-5">
                 <h3 class="text-center">Here is your Omikuji!</h3>
-                <div class="container p-4 border border-danger w-50">
-                    <h3> In <c:out value="${number}"></c:out> years, you will live in <c:out value="${city}"></c:out>
-                        with <c:out value="${person}"></c:out> as your roommate, selling <c:out value="${hobby}">
-                        </c:out> for a living. The next time you see a <c:out value="${livingThing }"></c:out>, you will
-                        have good luck. Also, <c:out value="${somethingNice}"></c:out>.
-                    </h3>
+                <div class="container p-4 border border-danger w-50 text-center">
+                    <h4>In <span><c:out value="${number}"></c:out></span> years, you will live in <span><c:out value="${city}"></c:out></span>
+                        with <span><c:out value="${person}"></c:out></span> as your roommate, selling <span><c:out value="${hobby}">
+                        </c:out></span> for a living. The next time you see a <span><c:out value="${livingThing }"></c:out></span>, you will
+                        have good luck. Also, <span><c:out value="${somethingNice}"></c:out></span>.
+                    </h4>
                     <div class="mt-4 text-center">
                         <a href="/" class="btn btn-danger">Go back</a>
                     </div>
