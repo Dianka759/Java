@@ -43,12 +43,12 @@ public class OmikujiController {
 	
 	@RequestMapping("/omikuji/show")
 	public String show(HttpSession session, Model model) {
-        model.addAttribute("number");
-        model.addAttribute("city");
-        model.addAttribute("person");
-        model.addAttribute("hobby");
-        model.addAttribute("livingThing");
-        model.addAttribute("somethingNice");
+        model.addAttribute("number", session.getAttribute("number"));
+        model.addAttribute("city", session.getAttribute("city"));
+        model.addAttribute("person", session.getAttribute("person"));
+        model.addAttribute("hobby", session.getAttribute("hobby"));
+        model.addAttribute("livingThing", session.getAttribute("livingThing"));
+        model.addAttribute("somethingNice", session.getAttribute("somethingNice"));
         
         return "show.jsp";	
 	}
