@@ -29,6 +29,7 @@
                     <th>Expense</th>
                     <th>Vendor</th>
                     <th>Amount</th>
+                    <th>Actions</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -37,6 +38,10 @@
                 	<td><c:out value="${i.expense}"></c:out></td>
                 	<td><c:out value="${i.vendor}"></c:out></td>
                 	<td><c:out value="$${i.amount}"></c:out></td>
+                	<td><a href="/edit/${i.id}">Edit</a> |
+                	<a href="/delete/${i.id}">Delete</a>
+                	</td>
+                	
                 </tr>
 				 </c:forEach>
                 </tbody>
@@ -49,18 +54,23 @@
                  <p> <form:errors path="expense" /> </p>
                  <p> <form:errors path="vendor" /> </p>
                  <p> <form:errors path="amount" /> </p>
+                 <p><form:errors path="description" /> </p>
                 <p>
                   <form:label path="expense">Expense</form:label> <br>
                   <form:input path="expense" />
                 </p>
                 <p>
                   <form:label path="vendor">Vendor</form:label> <br>
-                  <form:textarea path="vendor" />
+                  <form:input path="vendor" />
                 </p>
                 <p>
                   <form:label path="amount">Amount</form:label> <br>
                   <form:input type="number" path="amount" />
                 </p>
+                    <p>
+        		<form:label path="description">Description</form:label> <br>     
+        		<form:textarea path="description"/>
+    			</p>
                 <div class="text-center">
                 <input type="submit" value="Submit" class="btn btn-success"/>
                 </div>

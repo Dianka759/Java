@@ -35,6 +35,10 @@ public class Expense {
 		@NotNull
 		@Min(value=1, message="amount required.")
 		private double amount;
+		
+		@NotNull
+		@Size(min=1, max=255, message="description required.")
+		private String description;
 
 		
 	    // This will not allow the createdAt column to be updated after creation
@@ -49,10 +53,11 @@ public class Expense {
 	    public Expense() {
 	    }
 	    
-	    public Expense(String expense, String vendor, double amount) {
+	    public Expense(String expense, String vendor, double amount, String description) {
 	    	this.expense = expense;
 	    	this.vendor = vendor;
 	    	this.amount = amount;
+	    	this.description = description;
 	    }
 	    
 	    @PrePersist
@@ -111,6 +116,14 @@ public class Expense {
 
 		public void setUpdatedAt(Date updatedAt) {
 			this.updatedAt = updatedAt;
+		}
+
+		public String getDescription() {
+			return description;
+		}
+
+		public void setDescription(String description) {
+			this.description = description;
 		}
 		
 		
