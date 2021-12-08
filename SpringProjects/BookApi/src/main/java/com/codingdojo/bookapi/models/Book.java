@@ -35,11 +35,11 @@ public class Book {
     private String description;
     
     @NotNull
-    @Size(min = 3, max = 40, message="Language must be at least 3 characters.")
+    @Size(min = 3, max = 40)
     private String language;
     
     @NotNull
-    @Min(value=100, message="Must be at least 100 pages.")
+    @Min(value=100)
     private Integer numberOfPages;
     
     // This will not allow the createdAt column to be updated after creation

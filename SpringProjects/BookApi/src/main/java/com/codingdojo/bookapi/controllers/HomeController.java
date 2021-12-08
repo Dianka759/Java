@@ -37,15 +37,15 @@ public class HomeController {
         return "newBook.jsp";
     }
     
-    @RequestMapping(value="/makeBook", method=RequestMethod.POST)
-    public String create(@RequestParam(value="title") String title, 
-    					@RequestParam(value="description") String desc, 
-    					@RequestParam(value="language") String lang, 
-    					@RequestParam(value="pages") Integer numOfPages) {
-        Book book = new Book(title, desc, lang, numOfPages);
-        bookService.createBook(book);
-        return "redirect:/books";
-    }
+//    @RequestMapping(value="/makeBook", method=RequestMethod.POST)
+//    public String create(@RequestParam(value="title") String title, 
+//    					@RequestParam(value="description") String desc, 
+//    					@RequestParam(value="language") String lang, 
+//    					@RequestParam(value="pages") Integer numOfPages) {
+//        Book book = new Book(title, desc, lang, numOfPages);
+//        bookService.createBook(book);
+//        return "redirect:/books";
+//    }
     
     @RequestMapping(value="/books", method=RequestMethod.POST)
     public String create(@Valid @ModelAttribute("book") Book book, 
