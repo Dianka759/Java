@@ -23,14 +23,20 @@
           <body class="bg-dark">
             <div class="container w-25 border border-danger mt-4 p-3 text-light bg-danger text-center">
               <!-- Beginning of Container -->
-				<form:form action="/update_expense" method="post" modelAttribute="expense">
-                 <p> <form:errors path="expense" /> </p>
-                 <p> <form:errors path="vendor" /> </p>
-                 <p> <form:errors path="amount" /> </p>
-                     <p>
-        <form:errors path="id"/>
-        <form:input type="hidden" path="id" value="${expense.id}"/>
-    </p>
+              <form:form action="/update_expense" method="post" modelAttribute="expense">
+                <p>
+                  <form:errors path="expense" />
+                </p>
+                <p>
+                  <form:errors path="vendor" />
+                </p>
+                <p>
+                  <form:errors path="amount" />
+                </p>
+                <p>
+                  <form:errors path="id" />
+                  <form:input type="hidden" path="id" value="${expense.id}" />
+                </p>
                 <p>
                   <form:label path="expense">Expense</form:label> <br>
                   <form:input path="expense" />
@@ -44,15 +50,16 @@
                   <form:input type="number" path="amount" />
                 </p>
                 <p>
-			       <form:label path="description">Description</form:label> <br>
-			       <form:errors path="description"/>     
-			       <form:textarea path="description"/>
-			    </p> 
+                  <form:label path="description">Description</form:label> <br>
+                  <form:errors path="description" />
+                  <form:textarea path="description" />
+                </p>
                 <div class="text-center">
-                <input type="submit" value="Submit" class="btn btn-success"/>
+                  <input type="submit" value="Submit" class="btn btn-success" />
                 </div>
               </form:form>
-            </div> 
+              <a href="/expenses" class="btn btn-warning mt-2"> Go Back</a>
+            </div>
           </body>
 
           </html>

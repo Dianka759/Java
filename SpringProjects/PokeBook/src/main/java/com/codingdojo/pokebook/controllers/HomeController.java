@@ -9,7 +9,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -35,13 +34,14 @@ public class HomeController {
 //    @RequestMapping(value="/makeExpense", method=RequestMethod.POST)
 //    public String create(@RequestParam(value="expense") String expense, 
 //    					@RequestParam(value="vendor") String vendor, 
-//    					@RequestParam(value="amount") Double amount) {
-//        Expense expenses = new Expense(expense, vendor, amount);
+//    					@RequestParam(value="amount") Double amount,
+//    					@RequestParam(value="description") String description) {
+//        Expense expenses = new Expense(expense, vendor, amount, description);
 //        pokebookService.createExpense(expenses);
 //        return "redirect:/expenses";
 //    }
-//    
-    @PostMapping("/expensez")
+    
+    @RequestMapping(value="/makeExpense", method=RequestMethod.POST)
     public String create(Model model, @Valid @ModelAttribute("expense") Expense expense, 
     									BindingResult result,
     									@RequestParam(value="expense") String expensee, 
@@ -58,6 +58,17 @@ public class HomeController {
             return "redirect:/expenses";
         }
     }
+    
+//    @RequestMapping(value="/makeExpense", method=RequestMethod.POST)
+//    public String create(@Valid @ModelAttribute("expense") Expense expense, 
+//    									BindingResult result) {
+//        if (result.hasErrors()) {
+//            return "index.jsp";
+//        } else {
+//            pokebookService.createExpense(expense);
+//            return "redirect:/expenses";
+//        }
+//    }
     
 	@RequestMapping("/edit/{id}")
 	public String editExpense(@PathVariable("id") long id,
@@ -90,5 +101,12 @@ public class HomeController {
 		return "redirect:/expenses";
 	}
 
+	  @RequestMapping("/show/{id}")
+	  public String show(@PathVariable("id") Long id, Model model) {
+	        Expense expense = pokebookService.findExpense(id);	        
+	        model.addAttribute("expense", expense);
+	        return "show.jsp";
+	    }
+	    
     
 }
