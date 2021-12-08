@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
+import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -26,7 +27,7 @@ public class Expense {
 		
 		@NotNull
 		@Size(min = 1, max = 200, message="expense required.")
-		private String expense;
+		private String name;
 		
 		@NotNull
 		@Size(min = 1, max = 200, message="vendor required.")
@@ -34,6 +35,7 @@ public class Expense {
 		
 		@NotNull
 		@Min(value=1, message="amount required.")
+		@Max(value=10000)
 		private double amount;
 		
 		@NotNull
@@ -53,8 +55,8 @@ public class Expense {
 	    public Expense() {
 	    }
 	    
-	    public Expense(String expense, String vendor, double amount, String description) {
-	    	this.expense = expense;
+	    public Expense(String name, String vendor, double amount, String description) {
+	    	this.name = name;
 	    	this.vendor = vendor;
 	    	this.amount = amount;
 	    	this.description = description;
@@ -78,12 +80,12 @@ public class Expense {
 			this.id = id;
 		}
 
-		public String getExpense() {
-			return expense;
+		public String getName() {
+			return name;
 		}
 
-		public void setExpense(String expense) {
-			this.expense = expense;
+		public void setName(String name) {
+			this.name = name;
 		}
 
 		public String getVendor() {

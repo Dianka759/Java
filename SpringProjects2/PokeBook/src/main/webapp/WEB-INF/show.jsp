@@ -26,7 +26,7 @@
               <!-- Beginning of Container -->
               <h2 class="text-center"> Expense Details: </h2>
               <div class="bg-dark p-4">
-              <h4>Expense: <span><c:out value="${expense.expense}"></c:out></span></h4>
+              <h4>Expense: <span><c:out value="${expense.name}"></c:out></span></h4>
               <h4>Vendor: <span><c:out value="${expense.vendor}"></c:out></span></h4>
               <h4>Amount: <span><c:out value="${expense.amount}"></c:out></span></h4>
               <h4>Description: <span><c:out value="${expense.description}"></c:out></span></h4>

@@ -37,7 +37,7 @@
                   <c:forEach var="i" items="${expenses}">
                     <tr>
                       <td>
-                        <c:out value="${i.expense}"></c:out>
+                        <c:out value="${i.name}"></c:out>
                       </td>
                       <td>
                         <c:out value="${i.vendor}"></c:out>
@@ -61,7 +61,7 @@
               <h1>Track an expense</h1>
               <form:form action="/makeExpense" method="post" modelAttribute="expense">
                 <p>
-                  <form:errors path="expense" />
+                  <form:errors path="name" />
                 </p>
                 <p>
                   <form:errors path="vendor" />
@@ -73,8 +73,8 @@
                   <form:errors path="description" />
                 </p>
                 <p>
-                  <form:label path="expense">Expense</form:label> <br>
-                  <form:input type="text" path="expense" />
+                  <form:label path="name">Expense</form:label> <br>
+                  <form:input type="text" path="name" />
                 </p>
                 <p>
                   <form:label path="vendor">Vendor</form:label> <br>

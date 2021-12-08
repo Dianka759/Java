@@ -23,9 +23,10 @@
           <body class="bg-dark">
             <div class="container w-25 border border-danger mt-4 p-3 text-light bg-danger text-center">
               <!-- Beginning of Container -->
-              <form:form action="/update_expense" method="post" modelAttribute="expense">
+              <form:form action="/update_expense/${expense.id}" method="post" modelAttribute="expense">
+                <input type="hidden" name="_method" value="put">
                 <p>
-                  <form:errors path="expense" />
+                  <form:errors path="name" />
                 </p>
                 <p>
                   <form:errors path="vendor" />
@@ -34,12 +35,12 @@
                   <form:errors path="amount" />
                 </p>
                 <p>
-                  <form:errors path="id" />
-                  <form:input type="hidden" path="id" value="${expense.id}" />
+              <%--     <form:errors path="id" />
+                  <form:input type="hidden" path="id" value="${expense.id}" /> --%>
                 </p>
                 <p>
-                  <form:label path="expense">Expense</form:label> <br>
-                  <form:input path="expense" />
+                  <form:label path="name">Expense</form:label> <br>
+                  <form:input path="name" />
                 </p>
                 <p>
                   <form:label path="vendor">Vendor</form:label> <br>
