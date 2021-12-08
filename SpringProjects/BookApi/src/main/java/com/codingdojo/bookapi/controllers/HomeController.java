@@ -57,4 +57,17 @@ public class HomeController {
             return "redirect:/books";
         }
     }
+    
+    @RequestMapping("/book/{id}")
+    public String show(@PathVariable("id") Long id, Model model) {
+        Book book = bookService.findBook(id);
+        model.addAttribute("book", book);
+        return "show.jsp";
+    }
+    
+    @RequestMapping(value="/delete/{id}")
+    public String destroy(@PathVariable("id") Long id) {
+        bookService.deleteBook(id);
+        return "redirect:/books";
+    }
 }
