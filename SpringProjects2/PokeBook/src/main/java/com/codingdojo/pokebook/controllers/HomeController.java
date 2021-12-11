@@ -57,7 +57,7 @@ public class HomeController {
 		model.addAttribute("expense", expense);
 		return "edit.jsp";
 	}
-	
+	//The edit route
 //	@RequestMapping("/update_expense")
 //	public String updateExpense(@RequestParam("id") long id, 
 //			@RequestParam("name") String name, 
