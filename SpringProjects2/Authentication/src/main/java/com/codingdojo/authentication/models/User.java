@@ -42,6 +42,12 @@ public class User {
     @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
     private String confirm;
   
+    @NotEmpty(message="Gender is required!") 
+    private String gender;
+
+    @NotEmpty(message="Fav lang is required!")
+    private String language;
+    
     @Column(updatable= false)
     @DateTimeFormat(pattern="yyyy-mm-dd")
     private Date createdAt;
@@ -52,32 +58,76 @@ public class User {
     
     public User() {}
     
+    
     public User(Long id,
 			@NotEmpty(message = "Username is required!") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String userName,
 			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
 			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
 			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm,
-			Date createdAt, Date updatedAt) {
+			@NotEmpty(message = "Gender is required!") String gender,
+			@NotEmpty(message = "Fav lang is required!") String language, Date createdAt, Date updatedAt) {
 		super();
 		this.id = id;
 		this.userName = userName;
 		this.email = email;
 		this.password = password;
 		this.confirm = confirm;
+		this.gender = gender;
+		this.language = language;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 	}
 
+
 	public User(
-			@NotEmpty(message = "Username is required!") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String userName,
-			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
-			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password) {
-		super();
-		this.userName = userName;
-		this.email = email;
-		this.password = password;
+    		@NotEmpty(message = "Username is required!") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String userName,
+    		@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
+    		@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password) {
+    	super();
+    	this.userName = userName;
+    	this.email = email;
+    	this.password = password;
+    }
+
+
+	public String getLanguage() {
+		return language;
 	}
 
+
+
+	public void setLanguage(String language) {
+		this.language = language;
+	}
+
+
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
+
+
+
+
+	
 	@PrePersist
     protected void onCreate() {
     	this.createdAt = new Date();
@@ -127,6 +177,16 @@ public class User {
 
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
+	}
+
+
+	public String getGender() {
+		return gender;
+	}
+
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
     
   

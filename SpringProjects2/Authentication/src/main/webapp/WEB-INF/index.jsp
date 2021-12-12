@@ -23,6 +23,26 @@
             <form:errors path="userName" class="text-danger" />
         </div>
         <div class="form-group">
+		<label> Gender:</label> <br>
+		<div class="d-flex justify-content-between">
+        <p><form:radiobutton path="gender" value="Female"/> Female</p>
+		<p><form:radiobutton path="gender" value="Male"/> Male</p>
+		<p><form:radiobutton path="gender" value="Nonbinary"/> Nonbinary</p>
+		<p><form:radiobutton path="gender" value="other"/> Other</p>
+        </div>
+        <p><form:errors path="gender" class="text-danger" /></p>
+        </div>
+        <label> Favorite Language: </label>
+        <div class="form-group">
+        <form:select path="language">
+        <form:option value="" path="language">  </form:option>
+	    <form:option value="HTML/CSS" path="language"> HTML/CSS </form:option>
+	    <form:option value="Python" path="language"> Python</form:option>
+	    <form:option value="Java" path="language"> Java</form:option>
+		</form:select>
+		<p><form:errors path="language" class="text-danger" />
+		</div>
+        <div class="form-group">
             <label>Email:</label>
             <form:input path="email" class="form-control" />
             <form:errors path="email" class="text-danger" />

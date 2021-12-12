@@ -20,12 +20,12 @@ public class NinjasService {
         return ninjasRepository.findAll();
     }
     
-    // creates an expense
+    // creates a ninja
     public Ninja createNinja(Ninja ninjas) {
         return ninjasRepository.save(ninjas);
     }
       
-    // retrieves an Expense by Id
+    // retrieves a ninja by id
     public Ninja findNinjaById(Long id) {
         Optional<Ninja> optionalninjas = ninjasRepository.findById(id);
         if(optionalninjas.isPresent()) {

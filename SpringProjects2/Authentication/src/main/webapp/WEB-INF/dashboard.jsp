@@ -17,6 +17,7 @@
 <body>
 <h1> aww yeah you did it </h1>
 <h3> Welcome: <c:out value="${user.userName}"></c:out> </h3>
+<h3> gender: <c:out value="${user.gender}"></c:out> </h3>
 
 <a href="/logout">Logout</a>
    

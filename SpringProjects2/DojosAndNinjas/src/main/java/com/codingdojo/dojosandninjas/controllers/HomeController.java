@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.codingdojo.dojosandninjas.models.Dojo;
 import com.codingdojo.dojosandninjas.models.Ninja;
@@ -27,6 +28,12 @@ public class HomeController {
 	@Autowired
 	NinjasService ninjasService;
 	
+	///////Root///////
+	@GetMapping("/")
+	private String index(Model model) {
+		return "redirect:/dashboard";
+	}
+	
 	/////////////////////////DASHBOARD //////////////////////////
     @RequestMapping("/dashboard")
     public String dashboard(Model model) {
@@ -36,7 +43,7 @@ public class HomeController {
         return "dashboard.jsp";
     }
 	
-	/////////////////////Creatin a new dojo ///////////////////
+	///////////////////////Creatin a new dojo ///////////////////
     @RequestMapping("/dojos/new")
     public String newdojo(Model model, @ModelAttribute("dojo") Dojo dojo) {
         List<Dojo> dojos = dojosService.allDojos();
@@ -54,7 +61,7 @@ public class HomeController {
 		 }
 	}
 	
-	///////////////////////Creating a new ninja ///////////////////////
+	//////////////////////////Creating a new ninja ///////////////////////
     @RequestMapping("/ninjas/new")
     public String newninja(Model model, @ModelAttribute("ninja") Ninja ninja) {
         model.addAttribute("dojos", dojosService.allDojos());
@@ -62,18 +69,21 @@ public class HomeController {
     }
     
 	@PostMapping("/newninja")
-	public String ninjas(
+	public String ninjas(Model model,
 						 @Valid @ModelAttribute("ninja") Ninja ninja, 
 						 BindingResult result) {
-		if (result.hasErrors()) { 
+		if (result.hasErrors()) {
+		model.addAttribute("dojos", dojosService.allDojos());
 	    return "newNinja.jsp";
 		 } else {   
 		ninjasService.createNinja(ninja);
-	    return "redirect:/dashboard";
+		Dojo dojo = ninja.getDojo();
+		Long id = dojo.getId();
+	    return "redirect:/dojo/" +id;
 		 }
 	}
 	
-	/////////////////////////Showing one dojo with ninjas////////////////////
+	///////////////////////////Showing one dojo with ninjas/////////////////
 	@GetMapping("/dojo/{id}")
 	public String showDojos(@PathVariable Long id, Model model) { 
 		Dojo dojo = dojosService.findDojoById(id);
@@ -83,8 +93,10 @@ public class HomeController {
 	
 	///////////////////////////DELETE///////////////////////////////////////
 	@RequestMapping(value="delete/{id}")
-	public String destroy(@PathVariable("id") Long id) {
+	public String destroy(@PathVariable("id") Long id, 
+						  RedirectAttributes redirectAttributes) {
 		ninjasService.deleteNinja(id);
+		redirectAttributes.addFlashAttribute("message", "Your Ninja has been deleted");	
 		return "redirect:/dashboard";
 	}
 }

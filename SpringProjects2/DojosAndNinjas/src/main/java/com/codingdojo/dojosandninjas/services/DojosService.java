@@ -20,12 +20,12 @@ public class DojosService {
         return dojosRepository.findAll();
     }
     
-    // creates an expense
+    // creates a dojo
     public Dojo createDojo(Dojo dojo) {
         return dojosRepository.save(dojo);
     }
       
-    // retrieves an Expense by Id
+    // retrieves a dojo by id
     public Dojo findDojoById(Long id) {
         Optional<Dojo> optionaldojo = dojosRepository.findById(id);
         if(optionaldojo.isPresent()) {
