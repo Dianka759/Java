@@ -30,7 +30,7 @@
           </head>
 
           <body>
-            <div class="container">
+            <div class="container mt-4">
               <!-- Beginning of Container -->
               <p class="text-warning">Total Gold: <c:out value="${gold}"></c:out>
               </p>
@@ -41,7 +41,7 @@
                   <p>(earns 10-20 golds) </p>
                   <input type="hidden" name="building" value="farm" />
                   <form action="process" method="post">
-                    <input type="hidden" name="str" value="'>You have entered a farm and ">
+                    <input type="hidden" name="message" value="'>You have entered a farm and ">
                     <input type="hidden" name="min" value="10">
                     <input type="hidden" name="max" value="10">
                     <button type="submit" class="btn btn-outline-warning">Find Gold!</button>
@@ -53,7 +53,7 @@
                   <h3>Cave</h3>
                   <p>(earns 5-10 golds) </p>
                   <form action="process" method="post">
-                    <input type="hidden" name="str" value="'>You have entered a cave and ">
+                    <input type="hidden" name="message" value="'>You have entered a cave and ">
                     <input type="hidden" name="min" value="5">
                     <input type="hidden" name="max" value="5">
                     <button type="submit" class="btn btn-outline-warning">Find Gold!</button>
@@ -65,7 +65,7 @@
                   <h3>House</h3>
                   <p>(earns 2-5 golds) </p>
                   <form action="process" method="post">
-                    <input type="hidden" name="str" value="'>You have entered a house and ">
+                    <input type="hidden" name="message" value="'>You have entered a house and ">
                     <input type="hidden" name="min" value="2">
                     <input type="hidden" name="max" value="3">
                     <button type="submit" class="btn btn-outline-warning">Find Gold!</button>
@@ -77,7 +77,7 @@
                   <h3>Casino</h3>
                   <p>(earns/takes 0-50 golds) </p>
                   <form action="process" method="post">
-                    <input type="hidden" name="str" value="'>You have entered a casino and ">
+                    <input type="hidden" name="message" value="'>You have entered a casino and ">
                     <input type="hidden" name="min" value="-50">
                     <input type="hidden" name="max" value="100">
                     <button type="submit" class="btn btn-outline-warning">Find Gold!</button>
@@ -97,7 +97,7 @@
               </div>
               <div class="mt-4 d-flex justify-content-center">
                 <form action="process" method="post">
-                  <input type="hidden" name="str">
+                  <input type="hidden" name="message">
                   <input type="hidden" name="min" value="0">
                   <input type="hidden" name="max" value="0">
                   <input class="form-control" type="hidden" name="reset" value="reset">

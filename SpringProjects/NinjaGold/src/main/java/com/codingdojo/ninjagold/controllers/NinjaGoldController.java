@@ -31,13 +31,13 @@ public class NinjaGoldController {
 	@RequestMapping(value="process", method=RequestMethod.POST)
 	public String process(@RequestParam(value="min") int min, 
 						  @RequestParam(value="max") int max, 
-						  @RequestParam(value="str") String str,
+						  @RequestParam(value="message") String message,
 						  @RequestParam(value="reset", defaultValue ="") String reset,
 						  HttpSession session,
 						  Model model) {
 		
-		Date dt = new Date();
-		String stringDate = DateFormat.getDateTimeInstance().format(dt);
+		Date datetime = new Date();
+		String date = DateFormat.getDateTimeInstance().format(datetime);
 		
 		if(reset.equals("reset")||session.getAttribute("gold")==null || session.getAttribute("log")==null) {
 			session.invalidate();
@@ -61,7 +61,7 @@ public class NinjaGoldController {
 			color= "<p class='red";
 		}
 		
-		String newlog =(color+str + money + x +" gold, balance is now: "+ currentGold +" "+ stringDate);
+		String newlog =(color + message + money + x + " gold, balance is now: " + currentGold + " | "+ date);
 		log.add(0, newlog);
 		
 		session.setAttribute("gold", currentGold);
