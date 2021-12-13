@@ -56,16 +56,17 @@ public class User {
     @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
     private List<Book> book;
     
+    @OneToMany(mappedBy="borrower", fetch = FetchType.LAZY)
+    private List<Book> borrowedbooks;
+    
     public User() {}
     
-
 	public User(Long id,
-			@NotEmpty(message = "Username is required!") @Size(min = 3, max = 30, message = "Name must be between 3 and 30 characters") String name,
+			@NotEmpty(message = "Name is required!") @Size(min = 3, max = 30, message = "Username must be between 3 and 30 characters") String name,
 			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
 			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
 			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm,
-			Date createdAt, Date updatedAt,
-			List<Book> book) {
+			Date createdAt, Date updatedAt, List<Book> book, List<Book> borrowedbooks) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -75,6 +76,7 @@ public class User {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.book = book;
+		this.borrowedbooks = borrowedbooks;
 	}
 
 	public User(
@@ -170,5 +172,12 @@ public class User {
 		this.confirm = confirm;
 	}
 
-  
+	public List<Book> getBorrowedbooks() {
+		return borrowedbooks;
+	}
+
+	public void setBorrowedbooks(List<Book> borrowedbooks) {
+		this.borrowedbooks = borrowedbooks;
+	}
+
 }

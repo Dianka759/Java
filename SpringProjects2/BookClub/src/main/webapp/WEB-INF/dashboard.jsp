@@ -23,7 +23,7 @@
                     <c:out value="${user.name}"></c:out>
                   </span> </h3> <a href="/logout">Logout</a>
               </div>
-              <c:out value="${message}"></c:out>
+              <p class="text-danger"><c:out value="${message}"></c:out></p>
               <p>Books from everyone's shelves:
               <table class="table table-dark">
                 <thead>
@@ -50,10 +50,12 @@
                       </td>
                       <td>
                         <c:out value="${i.user.name}"></c:out>
+                      </td>
                   </c:forEach>
                 </tbody>
               </table>
-              <a href="/books/new" class="btn btn-outline-success">Make a new book</a>
+              <a href="/books/new" class="btn btn-outline-success">Make a new book</a> <br>
+              <a href="/bookmarket" class="mt-2 btn btn-outline-warning">Go borrow some books!</a>
             </div>
 
           </body>

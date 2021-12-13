@@ -42,6 +42,9 @@ public class Book {
     @JoinColumn(name="user_id")
     private User user;
     
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="borrower_id")
+    private User borrower;
     
     @PrePersist
     protected void onCreate(){
@@ -71,7 +74,8 @@ public class Book {
 
 	public Book(Long id, @NotEmpty(message = "Title is required!") String title,
 			@NotEmpty(message = "Author is required!") String author,
-			@NotEmpty(message = "Thoughts are required!") String thoughts, Date createdAt, Date updatedAt, User user) {
+			@NotEmpty(message = "Thoughts are required!") String thoughts, Date createdAt, Date updatedAt, User user,
+			User borrower) {
 		super();
 		this.id = id;
 		this.title = title;
@@ -80,6 +84,7 @@ public class Book {
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.user = user;
+		this.borrower = borrower;
 	}
 
 	public Long getId() {
@@ -136,6 +141,14 @@ public class Book {
 
 	public void setUser(User user) {
 		this.user = user;
+	}
+
+	public User getBorrower() {
+		return borrower;
+	}
+
+	public void setBorrower(User borrower) {
+		this.borrower = borrower;
 	}
 	
 

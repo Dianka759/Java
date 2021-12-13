@@ -72,7 +72,6 @@ public class HomeController {
     	if (session.getAttribute("user_id") != null) {
     	Long user_id = (Long) session.getAttribute("user_id");
     	model.addAttribute("user", userServ.oneUser(user_id));
-    	
     	model.addAttribute("books", bookServ.allBooks());
     	return "dashboard.jsp";
     } else {
@@ -165,4 +164,48 @@ public class HomeController {
 		return "redirect:/dashboard";
 	}
 	
+	///////////////////The book market///////////////////
+	@GetMapping("/bookmarket")
+	public String bookMarket(Model model, HttpSession session) {
+		Long user = (Long)session.getAttribute("user_id");
+		if(user == null) {
+			return "redirect:/dashboard";
+		} else {
+			model.addAttribute("user", userServ.oneUser(user));
+			model.addAttribute("books", bookServ.allBooks());
+			 return "bookBroker.jsp";
+		}
+	}
+
+	/////////////borrow a book //////////////
+	@GetMapping("/book/{id}/borrow")
+	public String borrowBook(@PathVariable("id") Long id, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		if(userId == null) {
+			return "redirect:/";
+		} else {
+			User user = userServ.oneUser(userId);
+			Book book = bookServ.findBookById(id);
+			if(book.getUser().getId()!=user.getId() && book.getBorrower()==null) {
+				bookServ.borrowBook(userId, id);
+			}
+			return "redirect:/bookmarket";
+		}
+	}
+	
+	///////////////return a book/////////////////
+	@GetMapping("/book/{id}/return")
+	public String returnBook(@PathVariable("id") Long id, HttpSession session) {
+		Long userId = (Long)session.getAttribute("user_id");
+		if(userId == null) {
+			return "redirect:/";
+		} else {
+			User user = userServ.oneUser(userId);
+			Book book = bookServ.findBookById(id);
+			if(book.getBorrower().getId()==user.getId()) {
+				bookServ.returnBook(userId, id);
+			}
+			return "redirect:/bookmarket";
+		}
+	}
 }
