@@ -25,6 +25,7 @@
         			<tr>
             			<th>ID</th>
             			<th>Name</th>
+            			<th>Artist</th>
             			<th>Rating</th>
             			<th class="text-center">Action</th>
         			</tr>
@@ -34,6 +35,7 @@
 					<tr>
 						<td><c:out value="${songs.id}"/></td>
 						<td><a href="/lookify/song/${songs.id}"><c:out value="${songs.title}"/></a></td>
+						<td><c:out value="${songs.artist}"/></td>
 						<td><c:out value="${songs.rating}"/> star(s)</td>
 						<td class="text-center"><a href="/lookify/song/edit/${songs.id}">Edit</a> |
 						<a href="/lookify/song/delete/${songs.id}">Delete</a></td>

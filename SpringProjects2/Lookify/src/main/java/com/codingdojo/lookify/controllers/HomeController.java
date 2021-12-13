@@ -19,30 +19,34 @@ import com.codingdojo.lookify.models.Song;
 import com.codingdojo.lookify.services.SongService;
 
 @Controller
-@RequestMapping("/lookify")
 public class HomeController {
 	
 	@Autowired
 	SongService songService;
 
-	@RequestMapping("")
+	@RequestMapping("/")
+	public String welcome() {
+		return "redirect:/lookify";
+	}
+	
+	@RequestMapping("/lookify")
 	public String index() {
 		return "index.jsp";
 	}
 	
-	@RequestMapping("/dashboard")
+	@RequestMapping("/lookify/dashboard")
 	public String dashboard(Model model, @ModelAttribute("song") Song song) {
 		List<Song> songs = songService.allSongs();
 		model.addAttribute("songs", songs);
 		return "dashboard.jsp";
 	}
 	
-	@RequestMapping("/song/new")
+	@RequestMapping("/lookify/song/new")
 	public String newSong(@ModelAttribute("song") Song song) {
 		return "newSong.jsp";
 	}
 	
-	@PostMapping("/newSong")
+	@PostMapping("/lookify/newSong")
 	public String createNewSong(@Valid @ModelAttribute("song") Song song, BindingResult result) {
 		if(result.hasErrors()) {
 			return "newSong.jsp";
@@ -52,14 +56,14 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("/song/edit/{id}")
+	@RequestMapping("/lookify/song/edit/{id}")
 	public String editSong(@PathVariable("id") long id,	Model model) {
 		Song song = songService.findSong(id);
 		model.addAttribute("song", song);
 		return "edit.jsp";
 	}
 	
-	@PostMapping(value="/updateSong/{id}")
+	@PostMapping(value="/lookify/updateSong/{id}")
 	public String updateSong(@PathVariable("id") long id, 
 			@Valid @ModelAttribute("song") Song song, BindingResult result) {
 		if(result.hasErrors()) {
@@ -71,20 +75,20 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("/song/{id}")
+	@RequestMapping("/lookify/song/{id}")
 	public String showSong(@PathVariable("id") Long id, Model model) {
 		Song song = songService.findSong(id);
 		model.addAttribute("song", song);
 		return "showSong.jsp";
 	}
 	
-	@RequestMapping("/song/delete/{id}")
+	@RequestMapping("/lookify/song/delete/{id}")
 	public String deleteSong(@PathVariable("id") Long id) {
 		songService.deleteSong(id);
 		return "redirect:/lookify/dashboard";
 	}
 	
-	@RequestMapping("/search")
+	@RequestMapping("/lookify/search")
 	public String search(@RequestParam("artist") String artist, Model model,
 						 RedirectAttributes error) {
 		List<Song> songs = songService.songsContainingArtist(artist);
@@ -104,7 +108,7 @@ public class HomeController {
 		}
 	}
 	
-	@RequestMapping("/search/topTen")
+	@RequestMapping("/lookify/search/topTen")
 	public String topTen(Model model) {
 		List<Song> songs = songService.topTen();
 		model.addAttribute("songs", songs);
