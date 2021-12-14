@@ -83,7 +83,7 @@ public class HomeController {
 	public String showStudent(@PathVariable Long id, Model model) { 
 		Dorm dorm = mainService.findDormById(id);
 		model.addAttribute("dorm", dorm); 
-		model.addAttribute("students", mainService.allStudents());
+		model.addAttribute("students", mainService.studentsWithNoDorms());
 		return "ShowDorm.jsp";
 	}
 	

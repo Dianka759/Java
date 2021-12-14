@@ -26,9 +26,9 @@
 									<label class="align-middle">Students: </label>
 									<select name="student" class="align-middle">
 										<c:forEach var="student" items="${students}">
-											<option value="${student.id}">
-												<c:out value="${student.name}" />
-											</option>
+												<option value="${student.id}">
+													<c:out value="${student.name}" />
+												</option>	
 										</c:forEach>
 									</select>
 									<button type="submit" class="btn btn-outline-warning">Add Student</button>
@@ -54,8 +54,8 @@
 									</tbody>
 								</table>
 							</div>
-							<a href="/dorms/new" class="btn btn-outline-primary">New Dorm</a>
-							<a href="/students/new" class="btn btn-outline-primary">New Student</a> <br>
+							<a href="/dorms/new" class="btn btn-outline-success">New Dorm</a>
+							<a href="/students/new" class="btn btn-outline-success">New Student</a> <br>
 							<a href="/dorms" class="mt-2 btn btn-outline-primary">Dashboard</a>
 						</div>
 					</body>

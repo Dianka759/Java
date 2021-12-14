@@ -22,6 +22,10 @@ public class MainService {
 	public List<Dorm> allDorms() {
 		return dormRepo.findAll();
 	}
+	
+	public List<Student> studentsWithNoDorms() {
+		return studentRepo.findByDormIsNull();
+	}
 
 	// returns all the students
 	public List<Student> allStudents() {
