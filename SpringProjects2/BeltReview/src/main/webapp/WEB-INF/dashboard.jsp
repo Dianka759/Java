@@ -100,11 +100,11 @@
                       <td>
                         <c:out value="${i.user.firstName}"></c:out> <c:out value="${i.user.lastName}"></c:out>
                       </td>
-                      <td>
-                        <c:out value="${i.mis.users.size()}"></c:out>
-                      </td>
                        <td>
                         <c:out value="${i.mis.name}"></c:out>
+                      </td>
+                      <td>
+                        <c:out value="${i.mis.users.size()}"></c:out>
                       </td>
                       <td>
                       <a href="/deleteJoin/${i.id}"> Delete </a>
