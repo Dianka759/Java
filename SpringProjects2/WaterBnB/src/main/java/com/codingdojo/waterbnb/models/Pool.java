@@ -1,20 +1,26 @@
 package com.codingdojo.waterbnb.models;
 
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
@@ -35,19 +41,15 @@ public class Pool {
 	@NotEmpty(message="size required")
 	private String poolSize;
 
-	@NotEmpty(message="Cost required.")
+	@NotNull(message="Cost required.")
 	@Min(50)
 	@Max(1000)
-	private Double price;
+	private double price;
 	
 	@NotEmpty(message="description required")
 	@Size(min=3, max=50, message="description between 3 and 50")
 	private String description;
 	
-	@NotEmpty(message="Rating is required.")
-	@Min(1)
-	@Max(5)
-	private int rating;
 	
     @Column(updatable= false)
     @DateTimeFormat(pattern="yyyy-mm-dd")
@@ -65,30 +67,60 @@ public class Pool {
     protected void onUpdate() {
     	this.updatedAt = new Date();
     }
+    
+	 @OneToMany(mappedBy="pool", fetch=FetchType.LAZY)
+	 private List<Review> reviews;
 	
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="user_id")
     private User user;
-	
+   
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+        name = "reviews", 
+        joinColumns = @JoinColumn(name = "pool_id"), 
+        inverseJoinColumns = @JoinColumn(name = "user_id") )    
+    private List<User> users;
+
+   
 	public Pool() {}
 
 	public Pool(Long id,
 			@NotEmpty(message = "Address required.") @Size(min = 3, max = 50, message = "address needs to be between 3 and 50") String address,
 			@NotEmpty(message = "size required") String poolSize,
-			@NotEmpty(message = "Cost required.") @Min(50) @Max(1000) Double price,
-			@NotEmpty(message = "description required") @Size(min = 3, max = 50, message = "dets between 3 and 50") String description,
-			@NotEmpty(message = "Rating is required.") @Min(1) @Max(5) int rating, Date createdAt, Date updatedAt,
-			User user) {
+			@NotNull(message = "Cost required.") @Min(50) @Max(1000) double price,
+			@NotEmpty(message = "description required") @Size(min = 3, max = 50, message = "description between 3 and 50") String description,
+			Date createdAt, Date updatedAt, User user, List<User> users) {
 		super();
 		this.id = id;
 		this.address = address;
 		this.poolSize = poolSize;
 		this.price = price;
 		this.description = description;
-		this.rating = rating;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
 		this.user = user;
+		this.users = users;
+	}
+
+	
+	public Pool(Long id,
+			@NotEmpty(message = "Address required.") @Size(min = 3, max = 50, message = "address needs to be between 3 and 50") String address,
+			@NotEmpty(message = "size required") String poolSize,
+			@NotNull(message = "Cost required.") @Min(50) @Max(1000) double price,
+			@NotEmpty(message = "description required") @Size(min = 3, max = 50, message = "description between 3 and 50") String description,
+			Date createdAt, Date updatedAt, List<Review> reviews, User user, List<User> users) {
+		super();
+		this.id = id;
+		this.address = address;
+		this.poolSize = poolSize;
+		this.price = price;
+		this.description = description;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.reviews = reviews;
+		this.user = user;
+		this.users = users;
 	}
 
 	public Long getId() {
@@ -115,11 +147,11 @@ public class Pool {
 		this.poolSize = poolSize;
 	}
 
-	public Double getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(Double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -147,6 +179,14 @@ public class Pool {
 		this.updatedAt = updatedAt;
 	}
 
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
 	public User getUser() {
 		return user;
 	}
@@ -154,13 +194,30 @@ public class Pool {
 	public void setUser(User user) {
 		this.user = user;
 	}
+	
+	
 
-	public int getRating() {
-		return rating;
+	public List<Review> getReviews() {
+		return reviews;
 	}
 
-	public void setRating(int rating) {
-		this.rating = rating;
+	public void setReviews(List<Review> reviews) {
+		this.reviews = reviews;
 	}
 	
+	///FIND THE AVERAGE OF THE RATINGS ///
+	public double getAverageRating() {
+		double numReviews = this.reviews.size();
+		if(numReviews == 0) {
+			return 0.0;
+		}
+		else {
+			double sum = 0.00;
+			for(int i = 0; i < numReviews; i++) {
+				sum += this.reviews.get(i).getRating();
+			}
+			return sum / numReviews;
+		}
+	}		
+
 }

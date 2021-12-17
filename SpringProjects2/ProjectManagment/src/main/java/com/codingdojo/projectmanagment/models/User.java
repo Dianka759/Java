@@ -1,4 +1,4 @@
-package com.codingdojo.waterbnb.models;
+package com.codingdojo.projectmanagment.models;
 
 import java.util.Date;
 import java.util.List;
@@ -22,6 +22,8 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
+
+
 
 @Entity
 @Table(name="users")
@@ -52,43 +54,49 @@ public class User {
     @Size(min=8, max=128, message="Confirm Password must be between 8 and 128 characters")
     private String confirm;
     
-    @NotEmpty(message="Status is required ")
-    private String status;
-    
     @Column(updatable= false)
     @DateTimeFormat(pattern="yyyy-mm-dd")
     private Date createdAt;
     
     @DateTimeFormat(pattern="yyyy-mm-dd")
     private Date updatedAt;
-
-    @OneToMany(mappedBy="user", fetch=FetchType.LAZY)
-    private List<Pool> userPools;
     
-	@ManyToMany(fetch=FetchType.LAZY)
-	@JoinTable(name="reviews",
-		joinColumns=@JoinColumn(name="user_id"),
-		inverseJoinColumns=@JoinColumn(name="pool_id")
-	)
-	private List<Pool> pools;
-	
-	@ManyToMany(fetch = FetchType.EAGER)
+    @OneToMany(mappedBy="user", fetch = FetchType.LAZY)
+    private List<Project> project;
+    
+    @ManyToMany(fetch=FetchType.LAZY)
     @JoinTable(
-        name = "users_roles", 
-        joinColumns = @JoinColumn(name = "user_id"), 
-        inverseJoinColumns = @JoinColumn(name = "role_id"))
-    private List<Role> roles;
+    		name="joined_team",
+    		joinColumns= @JoinColumn(name="user_id"),
+    		inverseJoinColumns = @JoinColumn(name="project_id")
+    		)
+    private List<Project> joinedProjects;
+    
     
     public User() {}
-   
+    
+
+	public User(
+			@NotEmpty(message = "First name is required!") @Size(min = 3, max = 20, message = "First name must be between 3 and 20 characters") String firstName,
+			@NotEmpty(message = "Last name is required!") @Size(min = 3, max = 20, message = "Last name must be between 3 and 20 characters") String lastName,
+			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
+			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
+			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm) {
+		super();
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.confirm = confirm;
+	}
+
 	public User(Long id,
 			@NotEmpty(message = "First name is required!") @Size(min = 3, max = 20, message = "First name must be between 3 and 20 characters") String firstName,
 			@NotEmpty(message = "Last name is required!") @Size(min = 3, max = 20, message = "Last name must be between 3 and 20 characters") String lastName,
 			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
 			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
 			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm,
-			@NotEmpty(message = "Status is required ") String status, Date createdAt, Date updatedAt,
-			List<Pool> pools) {
+			Date createdAt, Date updatedAt, List<Project> project) {
 		super();
 		this.id = id;
 		this.firstName = firstName;
@@ -96,12 +104,58 @@ public class User {
 		this.email = email;
 		this.password = password;
 		this.confirm = confirm;
-		this.status = status;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		this.pools = pools;
+		this.project = project;
 	}
 
+
+
+
+	public User(Long id,
+			@NotEmpty(message = "First name is required!") @Size(min = 3, max = 20, message = "First name must be between 3 and 20 characters") String firstName,
+			@NotEmpty(message = "Last name is required!") @Size(min = 3, max = 20, message = "Last name must be between 3 and 20 characters") String lastName,
+			@NotEmpty(message = "Email is required!") @Email(message = "Please enter a valid email!") String email,
+			@NotEmpty(message = "Password is required!") @Size(min = 8, max = 128, message = "Password must be between 8 and 128 characters") String password,
+			@NotEmpty(message = "Confirm Password is required!") @Size(min = 8, max = 128, message = "Confirm Password must be between 8 and 128 characters") String confirm,
+			Date createdAt, Date updatedAt, List<Project> project, List<Project> joinedProjects) {
+		super();
+		this.id = id;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.email = email;
+		this.password = password;
+		this.confirm = confirm;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+		this.project = project;
+		this.joinedProjects = joinedProjects;
+	}
+
+
+
+
+	public Date getCreatedAt() {
+		return createdAt;
+	}
+
+
+
+	public void setCreatedAt(Date createdAt) {
+		this.createdAt = createdAt;
+	}
+
+
+
+	public Date getUpdatedAt() {
+		return updatedAt;
+	}
+
+
+
+	public void setUpdatedAt(Date updatedAt) {
+		this.updatedAt = updatedAt;
+	}
 
 	@PrePersist
     protected void onCreate() {
@@ -112,28 +166,16 @@ public class User {
     protected void onUpdate() {
     	this.updatedAt = new Date();
     }
-
-	public List<Pool> getPools() {
-		return pools;
-	}
-
-	public void setPools(List<Pool> pools) {
-		this.pools = pools;
-	}
-
-
-	public void setUpdatedAt(Date updatedAt) {
-		this.updatedAt = updatedAt;
-	}
-
+    
+    
 	public Long getId() {
 		return id;
 	}
 
-
 	public void setId(Long id) {
 		this.id = id;
 	}
+
 
 
 	public String getFirstName() {
@@ -141,9 +183,13 @@ public class User {
 	}
 
 
+
+
 	public void setFirstName(String firstName) {
 		this.firstName = firstName;
 	}
+
+
 
 
 	public String getLastName() {
@@ -151,62 +197,63 @@ public class User {
 	}
 
 
+
+
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
 	}
+
+
 
 
 	public String getEmail() {
 		return email;
 	}
 
-
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
 
 	public String getPassword() {
 		return password;
 	}
 
-
 	public void setPassword(String password) {
 		this.password = password;
 	}
 
-
 	public String getConfirm() {
 		return confirm;
 	}
-
 
 	public void setConfirm(String confirm) {
 		this.confirm = confirm;
 	}
 
 
-	public Date getCreatedAt() {
-		return createdAt;
+	public List<Project> getProject() {
+		return project;
 	}
 
 
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
+	public void setProject(List<Project> project) {
+		this.project = project;
 	}
 
 
-	public Date getUpdatedAt() {
-		return updatedAt;
+
+
+	public List<Project> getJoinedProjects() {
+		return joinedProjects;
 	}
 
-	public String getStatus() {
-		return status;
-	}
 
-	public void setStatus(String status) {
-		this.status = status;
-	}
 
+
+	public void setJoinedProjects(List<Project> joinedProjects) {
+		this.joinedProjects = joinedProjects;
+	}
 	
+	
+
 }

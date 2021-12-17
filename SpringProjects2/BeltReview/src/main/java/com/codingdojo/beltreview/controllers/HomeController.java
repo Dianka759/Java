@@ -81,7 +81,6 @@ public class HomeController {
 			model.addAttribute("users", mainServ.allUsers());
 			model.addAttribute("allMis", mainServ.alllMischiefs());
 			model.addAttribute("allJoins", mainServ.allJoins());
-			model.addAttribute("count", mainServ.allJoins().size());
 			return "dashboard.jsp";
 		} else {
 			return "redirect:/";

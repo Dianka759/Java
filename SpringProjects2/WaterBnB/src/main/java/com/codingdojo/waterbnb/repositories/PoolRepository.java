@@ -10,4 +10,6 @@ import com.codingdojo.waterbnb.models.Pool;
 @Repository
 public interface PoolRepository extends CrudRepository<Pool, Long> {
 	List<Pool> findAll();
+	List<Pool> findByAddressContaining(String search);
+	List<Pool> findByusers_id(Long id);
 }
