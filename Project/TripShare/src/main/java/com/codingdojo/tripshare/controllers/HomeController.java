@@ -200,11 +200,17 @@ public class HomeController {
 	@PostMapping("/addLocation/{trip_id}")
 	public String addLocation(@Valid @ModelAttribute("newLocation") Location location, BindingResult result,
 							  @PathVariable("trip_id") Long trip_id, 
-							  Model model, HttpSession session ) {
+							  @ModelAttribute("addToTrip") User friend,
+							  Model model, HttpSession session,
+							  @ModelAttribute("updateTripshare") Trip trip2,
+							  @ModelAttribute("addToTrip") User friend2) {
 		if (result.hasErrors()) { 
 			Long user_id = (Long)session.getAttribute("user_id");
 			User user = userServ.oneUser(user_id);
-	    	model.addAttribute("user", user);
+			model.addAttribute("user", user);
+			model.addAttribute("trip", tripServ.findTripById(trip_id));
+			model.addAttribute("friendsNot", userServ.findByNotOnTrip(tripServ.findTripById(trip_id)));
+			model.addAttribute("participants", signupServ.allSignupes());
 		    return "newTrip.jsp";
 			} else {		
 			Trip trip = tripServ.findTripById(trip_id);
@@ -213,6 +219,48 @@ public class HomeController {
 		    location.setTrip(trip);
 		    locationServ.createLocation(location);
 		    return "redirect:/create/tripshare/" + trip_id;
+			}
+	}
+	
+	///////////////////for the edit page ////////////////////////
+	@RequestMapping(value="/delete2/location/{location_id}/{trip_id}")
+	public String deleteLocation2(@PathVariable("location_id") Long location_id, 
+								@PathVariable("trip_id") Long trip_id,
+								@ModelAttribute("newTripshare") Trip trip, HttpSession session, 
+								Model model, RedirectAttributes redirectAttributes) {
+		locationServ.deleteLocation(location_id);
+		if (session.getAttribute("user_id") == null) {
+        	redirectAttributes.addFlashAttribute("error", "You need to be logged in!");
+    		return "redirect:/";
+    	}
+		Long user_id = (Long)session.getAttribute("user_id");
+    	model.addAttribute("user", user_id);
+		return "redirect:/trip/edit/" + trip_id;
+	}
+
+	@PostMapping("/addLocation2/{trip_id}")
+	public String addLocation2(@Valid @ModelAttribute("newLocation") Location location, BindingResult result,
+							  @PathVariable("trip_id") Long trip_id, 
+							  @ModelAttribute("addToTrip") User friend,
+							  Model model, HttpSession session,
+							  @ModelAttribute("updateTripshare") Trip trip2,
+							  @ModelAttribute("addToTrip") User friend2) {
+		if (result.hasErrors()) { 
+			Long user_id = (Long)session.getAttribute("user_id");
+			User user = userServ.oneUser(user_id);
+			model.addAttribute("user", user);
+			model.addAttribute("trip", tripServ.findTripById(trip_id));
+			model.addAttribute("friendsNot", userServ.findByNotOnTrip(tripServ.findTripById(trip_id)));
+			model.addAttribute("participants", signupServ.allSignupes());
+			return "editTrip.jsp";
+			
+			} else {		
+			Trip trip = tripServ.findTripById(trip_id);
+			Long user_id = (Long)session.getAttribute("user_id");		
+		    model.addAttribute("user", user_id); 
+		    location.setTrip(trip);
+		    locationServ.createLocation(location);
+		    return "redirect:/trip/edit/" + trip_id;
 			}
 	}
 	
@@ -324,10 +372,14 @@ public class HomeController {
 	
 	@PostMapping("/comment/{id}")
 	public String makeComment(@Valid @ModelAttribute("addComment") Comment comment, BindingResult result,
-							  @PathVariable("id") Long id) {
+							  @PathVariable("id") Long id, Model model, HttpSession session) {
 		if (result.hasErrors()) { 
-			System.out.println(result);
-			return "redirect:/trip/" + id;
+			Long user_id = (Long) session.getAttribute("user_id");
+			User user = userServ.oneUser(user_id);
+			model.addAttribute("user", user);
+			model.addAttribute("trip", tripServ.findTripById(id));
+			model.addAttribute("comments", commentServ.allCommentes());
+			return "trip.jsp";
 		} else {
 			commentServ.createComment(comment);
 			return "redirect:/trip/" + id;	
@@ -344,21 +396,23 @@ public class HomeController {
 	public String rating(@PathVariable("location_id") Long location_id,
 						 @PathVariable("trip_id") Long trip_id,
 						 Model model, @ModelAttribute("postReview") Rating rating ) {
-		model.addAttribute("location", locationServ.findLocationById(location_id));
 		
+		model.addAttribute("location", locationServ.findLocationById(location_id));
 		model.addAttribute("trip", tripServ.findTripById(trip_id));
 
 		return "rating.jsp";
 	}
 	
-	//////POST rating
+	/////POST rating
 	@PostMapping("/leaverating/{location_id}/{trip_id}")
-	public String giverating(@Valid @ModelAttribute("postReview") Rating rating,
+	public String giverating(@Valid @ModelAttribute("postReview") Rating rating, BindingResult result,
 							 @PathVariable("location_id") Long location_id,
-			                 @PathVariable("trip_id") Long trip_id, BindingResult result,
-			                 HttpSession session) {
-		if (result.hasErrors()) { 
-			return "redirect:/rating/" + location_id + "/" + trip_id;
+			                 @PathVariable("trip_id") Long trip_id,
+			                 HttpSession session, Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("location", locationServ.findLocationById(location_id));
+			model.addAttribute("trip", tripServ.findTripById(trip_id));
+			return "rating.jsp";
 		} else {
 			Location location = locationServ.findLocationById(location_id);
 			

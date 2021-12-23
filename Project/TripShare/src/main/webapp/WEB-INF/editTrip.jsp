@@ -29,6 +29,8 @@
         <div class="friendsearch">
             <input class="friends" type="text" placeholder="search for friends">
             <img class="search-btn" src="/img/icons8-enter-24.png" alt="enter icon">
+            <a href="/logout" id="logout" class="ms-4">Logout</a>
+           
         </div>
     </div>
     <c:if test="${trip.name == null }">
@@ -36,17 +38,17 @@
     <form:form action="/updatetrip/${trip.id}" method="post" modelAttribute="updateTripshare">
     <form:hidden path="user" value="${user}"/>
         <label>Name your trip:</label>
-        <form:input type="text" path="name"/>
+        <form:input type="text" path="name" value="${trip.name}"/>
         <label>Start Date</label>
-        <form:input type="date" path="startDate"/>
+        <form:input type="date" path="startDate" value="${trip.startDate}"/>
         <label>End Date</label>
-        <form:input type="date" path="endDate"/>
+        <form:input type="date" path="endDate" value="${trip.endDate}"/>
         <input type="submit" value="Create Trip">
         </form:form>
     </c:if>
     
         <c:if test="${trip.name != null}">
-    <h2> Update your <span class="fw-bold" style="color:rgb(79, 112, 68)">${trip.name}</span> trip!</h2>
+    <h2> Update your <span class="fw-bold" style="color:rgb(79, 112, 68)">${trip.name}</span> trip! </h2> 
         <div class="row">
         <div class="col-sm">
                 <table class="table table-striped table-light">
@@ -60,22 +62,22 @@
                     <tr>
                         <td class="align-middle">
                             ${i.name} - ${i.address} - $${i.cost} -
-                             <a href="${i.outsideLink}" id="GFG">Outside Link</a> | 
-                            <a href="/delete/location/${i.id}/${trip.id}" id="GFG">Delete</a>
+                             <a href="${i.outsideLink}" id="GFG" target="_blank">Outside Link</a> | 
+                            <a href="/delete2/location/${i.id}/${trip.id}" id="GFG">Delete</a>
                         </td>
                     </tr>
                     </c:forEach>
                     <tr>
                     <td> 
-                    <form:form action="/addLocation/${trip.id}" method="post" modelAttribute="newLocation">
+                    <form:form action="/addLocation2/${trip.id}" method="post" modelAttribute="newLocation">
                     <form:hidden path="trip" value="${trip.id}"/>
-                    <form:errors path="name"/>
+                    <form:errors path="name" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="name" placeholder="name"/>
-                    <form:errors path="address"/>
+                    <form:errors path="address" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="address" placeholder="address"/>
-                    <form:errors path="cost"/>
+                    <form:errors path="cost" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="cost" placeholder="cost"/>
-                    <form:errors path="outsideLink"/>
+                    <form:errors path="outsideLink" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="outsideLink" placeholder="outside link"/>
                     <input type="submit" value="add" class="btn btn-outline-success">
                     </form:form>
@@ -118,11 +120,6 @@
                         </tbody>
                     </table>
                 </div>
-              <%--   <form:form action="/addLocation/${trip.id}" method="post" modelAttribute="newLocation">
-                    <label>Add a few destinations by entering links below:</label>
-                    <form:input type="text" path="name" placeholder="name"/>
-                    <button type="submit">Add</button>
-                </form:form> --%>
                 <div class="friend-table">
                     <table class="table-right table table-striped table-light">
                         <thead>
@@ -178,7 +175,8 @@
                     </table>
                 </div>
             </div>
-            <a href="/trip/${trip.id}"><button type="submit">Update</button></a>
+         
+           <a href="/trip/${trip.id}"><button type="submit">Update</button></a>
         <div class="img"></div> 
         </c:if>
 </body>

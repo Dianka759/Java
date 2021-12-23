@@ -205,3 +205,9 @@ h3 {
 	font-size: 18px;
 	min-height: 20px ; 
 }
+
+  #logout {
+    text-decoration: none;
+    color: rgb(79, 112, 68);
+    font-weight: 500;
+  }

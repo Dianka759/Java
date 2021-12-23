@@ -190,3 +190,9 @@ h3 {
  .comment-area{
  text-align: -webkit-center;
  }
+ 
+   #logout {
+    text-decoration: none;
+    color: rgb(79, 112, 68);
+    font-weight: 500;
+  }

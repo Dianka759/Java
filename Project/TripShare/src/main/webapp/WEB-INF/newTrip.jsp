@@ -29,6 +29,7 @@
         <div class="friendsearch">
             <input class="friends" type="text" placeholder="search for friends">
             <img class="search-btn" src="/img/icons8-enter-24.png" alt="enter icon">
+            <a href="/logout" id="logout" class="ms-4">Logout</a>       
         </div>
     </div>
     <c:if test="${trip.name == null }">
@@ -37,13 +38,13 @@
     <form:hidden path="user" value="${user}"/>
         <form:errors path="name" class="text-danger"/>
         <label>Name your trip:</label>
-        <form:input type="text" path="name"/>
+        <form:input type="text" path="name" value="${trip.name}"/>
         <form:errors path="startDate" class="text-danger"/>
         <label>Start Date</label>
-        <form:input type="date" path="startDate"/>
+        <form:input type="date" path="startDate" value="${trip.startDate}" />
         <form:errors path="endDate" class="text-danger"/>
         <label>End Date</label>
-        <form:input type="date" path="endDate"/>
+        <form:input type="date" path="endDate" value="${trip.endDate}"/>
         <input type="submit" value="Create Trip">
         </form:form>
     </c:if>
@@ -72,13 +73,13 @@
                     <td> 
                     <form:form action="/addLocation/${trip.id}" method="post" modelAttribute="newLocation">
                     <form:hidden path="trip" value="${trip.id}"/>
-                    <form:errors path="name"/>
+                    <form:errors path="name" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="name" placeholder="name"/>
-                    <form:errors path="address"/>
+                    <form:errors path="address" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="address" placeholder="address"/>
-                    <form:errors path="cost"/>
+                    <form:errors path="cost" class="text-danger" />
                     <form:input style="width:120px" type="text" path="cost" placeholder="cost"/>
-                    <form:errors path="outsideLink"/>
+                    <form:errors path="outsideLink" class="text-danger"/>
                     <form:input style="width:120px" type="text" path="outsideLink" placeholder="outside link"/>
                     <input type="submit" value="add" class="btn btn-outline-success">
                     </form:form>

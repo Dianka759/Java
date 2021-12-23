@@ -29,13 +29,12 @@
         <div class="friendsearch">
             <input class="friends" type="text" placeholder="search for friends">
             <img class="search-btn" src="/img/icons8-enter-24.png" alt="enter icon">
-            <a href="/logout" class="ms-4">Logout</a>
-           
-        </div>
+            <a href="/logout" id="logout" class="ms-4">Logout</a>         
+        </div>   
     </div>
 
     <div class="header">
-        <h2>Welcome to TripShare, <span class="text-success">${user.firstName} ${user.lastName}</span></h2>
+        <h2>Welcome to TripShare, <span style="color: rgb(79, 112, 68); font-weight: 500;">${user.firstName} ${user.lastName}</span></h2>
         <div class="buttons">
           <a href="/new/tripshare"><button>+ create a TripShare</button></a>
         </div>
@@ -43,6 +42,7 @@
     <h3>Check out these links for inspiration</h3>
     <div class="row">
         <div class="col-sm">
+        <div class="overflow">
             <table class="table table-striped table-light">
                 <thead>
                 <tr>
@@ -59,10 +59,13 @@
                 </c:forEach>
                 </tbody>
             </table>
+        </div>
+        <div class="overflow">
                 <table class="table-right table table-striped table-light">
                     <thead>
                     <tr>
                         <th scope="col">Friends</th>
+                        <th></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -72,15 +75,17 @@
                                     <td class="align-middle">
                                     <a id="GFG" href="/">${i.friend.firstName}</a> </td>
                                     <td class="align-middle">
-                                    <a href="/deleteFriendship/${i.id}">Delete</a>
+                                    <a class="press" href="/deleteFriendship/${i.id}">Delete</a>
                                     </td>
                                 </tr>
                      </c:if>
                             </c:forEach>
                     </tbody>
                 </table>
+                </div>
         </div>
         <div class="col-right">
+        <div class="overflow">
             <table class="table table-striped table-light">
                 <thead>
                     <tr>
@@ -97,11 +102,13 @@
                 </c:forEach>
                 </tbody>
             </table>
-       
+            </div>
+       <div class="overflow">
             <table class="table table-striped table-light">
                 <thead>
                     <tr>
                         <th scope="col">Potential Friends</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -113,7 +120,7 @@
                             ${i.firstName}
                         </td>
                         <td class="align-middle">
-                        <a href="/addFriend/${i.id}">Add Friend</a>
+                        <a class="press" href="/addFriend/${i.id}">Add Friend</a>
                         </td>
                     </tr>
                     </c:if>
@@ -121,6 +128,7 @@
                 </c:forEach>
                 </tbody>
             </table>
+            </div>
         </div>
         </div>
     <div class="img"></div>

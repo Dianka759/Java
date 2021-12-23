@@ -81,7 +81,7 @@ label {
     font-family: 'Josefin Sans', sans-serif;
     border-collapse: collapse;
     margin: 5px 0px 10px 20px;
-    width: 650px;
+    width:-webkit-fill-available;
 }
 
 .row {
@@ -136,4 +136,10 @@ button {
   
   .foot-right:hover {
     cursor: pointer;
+  }
+  
+    #logout {
+    text-decoration: none;
+    color: rgb(79, 112, 68);
+    font-weight: 500;
   }

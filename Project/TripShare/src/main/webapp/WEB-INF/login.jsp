@@ -28,7 +28,7 @@
         <div class="dropdown" style="float:right;">
             <button class="dropbtn"><img src="/img/icons8-menu-30.png" alt="hamburger menu"></button>
             <div class="dropdown-content">
-                <a href="/newtrip">Plan a TripShare</a>
+                <a href="/new/tripshare">Plan a TripShare</a>
                 <a href="/dashboard">TripShares</a>
                 <a href="/dashboard">Invite friends</a>
             </div>

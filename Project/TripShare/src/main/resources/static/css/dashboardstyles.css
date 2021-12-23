@@ -44,6 +44,12 @@ font-size: 50px;
       cursor: pointer;
   }
 
+  #logout {
+    text-decoration: none;
+    color: rgb(79, 112, 68);
+    font-weight: 500;
+  }
+
   /* Header */
 .header {
     display: flex;
@@ -93,22 +99,42 @@ padding-left: 20px;
 
 .table {
     font-family: 'Josefin Sans', sans-serif;
+    font-weight: 400;
     border-collapse: collapse;
     margin: 5px 0px 10px 20px;
-    width: 700px;
+    max-height: 500px;
+    overflow: scroll;
+    width: -webkit-fill-available;
 }
 
-.locations-table td, #locations-table th {
-    border: 1px solid gray;
-    padding: 8px;
+th {
+  font-family: 'Josefin Sans', sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.press {
+  text-decoration: none;
+  color: rgb(64, 85, 51);
+}
+
+.press:hover {
+  color: gray;
 }
 
 .row {
-    width: 100%;
-    height: 380px;
+    width: 1400px;
+    height: auto;
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
+    margin-bottom: 20px;
+    padding-right: 20px;
+}
+
+.overflow {
+	overflow: auto;
+    max-height: 400px;
 }
 
 .col-sm {
@@ -126,6 +152,7 @@ padding-left: 20px;
 .img {
     background-image: url("https://images.pexels.com/photos/88212/pexels-photo-88212.jpeg?cs=srgb&dl=pexels-zukiman-mohamad-88212.jpg&fm=jpg");
     background-size: cover;
+    margin-top: 80px;
     width: 100%;
     height: 245px;
 }
@@ -143,7 +170,7 @@ padding-left: 20px;
   }
   
   .foot a {
-    color: rgb(58, 58, 58);
+    color: rgb(83, 98, 66);
   }
   
   .foot a:hover {

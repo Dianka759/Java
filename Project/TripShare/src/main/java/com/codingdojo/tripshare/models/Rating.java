@@ -32,7 +32,7 @@ public class Rating {
     private String content;
     
     @NotNull(message="Rating is required!")
-	@Min(1)
+	@Min(value=1, message="Rating is required!")
 	@Max(5)
     private int rating;
     
