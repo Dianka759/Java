@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.codingdojo.javaexam.models.Student;
-import com.codingdojo.javaexam.models.User;
+import com.codingdojo.javaexam.models.YogaClass;
 import com.codingdojo.javaexam.repositories.StudentRepository;
 
 @Service
@@ -46,14 +46,23 @@ public class StudentService {
     	studentRepo.deleteById(id);
     }
     
-    //this will get the email 
-    public Student checkByEmail(Student student) {
-    Optional<Student> potentialstudent = studentRepo.findByEmail(student.getEmail());
-    //if the email doesnt exist in the db, returns error message.
-    if(!potentialstudent.isPresent()) {
-        return null;
-    }
-    return potentialstudent.get();
-    }
+//    //this will get the email 
+//    public Student checkByEmail(Student student) {
+//    Optional<Student> potentialstudent = studentRepo.findByEmail(student.getEmail());
+//    //if the email doesnt exist in the db, returns error message.
+//    if(!potentialstudent.isPresent()) {
+//        return null;
+//    }
+//    return potentialstudent.get();
+//    }
+
+	public boolean findBoth(Long student_id, Long class_id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	
+	public List<Student> findByNotClass(YogaClass yogaClass){
+		return studentRepo.findByClassesNotContains(yogaClass);
+	}
 
 }

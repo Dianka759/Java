@@ -164,11 +164,11 @@ public class HomeController {
         	redirectAttributes.addFlashAttribute("error", "Can't view a class, but nice try. Now log in.");
     		return "redirect:/";
     	}
-		User user = userServ.oneUser((Long) session.getAttribute("user_id"));    
-    	model.addAttribute("user", user);
+		
 		model.addAttribute("yogaclass", classServ.findClassById(id));
-		model.addAttribute("studentList", studentServ.allStudents());
+		model.addAttribute("studentList", studentServ.findByNotClass(classServ.findClassById(id)));
 		model.addAttribute("allJoins", joinServ.allJoins());
+//		model.addAttribute("join", joinServ.findJoinById(id))
 
 		return "show.jsp";
 	}
@@ -189,12 +189,21 @@ public class HomeController {
 	//	new student
 	@PostMapping("/newstudent")
 	public String newstudent(@Valid @ModelAttribute("student") Student student,
-			BindingResult result, @RequestParam(name="yogaclass") Long class_id) {
+			BindingResult result, @RequestParam(name="yogaclass") Long class_id,
+			HttpSession session, Model model, RedirectAttributes redirectAttributes) {
 		if (result.hasErrors()) { 
-	    return "dashboard.jsp";
+			if (session.getAttribute("user_id") == null) {
+	        	redirectAttributes.addFlashAttribute("error", "Can't view a class, but nice try. Now log in.");
+	    		return "redirect:/";
+	    	}
+			
+			model.addAttribute("yogaclass", classServ.findClassById(class_id));
+			model.addAttribute("studentList", studentServ.findByNotClass(classServ.findClassById(class_id)));
+			model.addAttribute("allJoins", joinServ.allJoins());
+	    return "show.jsp";
 		 } else {   
 		studentServ.createStudent(student);
-	    return "redirect:/class/" + class_id;
+	    return "redirect:/student/post/" + class_id + "/" + student.getId();
 		 }
 	}
 	
@@ -205,14 +214,35 @@ public class HomeController {
 		Student student = studentServ.findStudentById(student_id);
 		YogaClass yogaclass = classServ.findClassById(class_id);
 		
-//		if (!studentServ.findBoth(student_id, class_id)){
-			student.getClasses().add(yogaclass);
-			studentServ.createStudent(student);
-			return "redirect:/class/" + class_id;			
-//		} else {
-//			return "redirect:/class/" + class_id;
-//		}
-		
+		student.getClasses().add(yogaclass);
+		studentServ.createStudent(student);
+		return "redirect:/class/" + class_id;	
 	}
+	
+	@RequestMapping("/student/post/{classId}/{studentId}")
+    public String createAutoJoin(@PathVariable("studentId") Long studentId, @PathVariable("classId") Long classId) {
+        Student newStudent = studentServ.findStudentById(studentId);
+        YogaClass newClass = classServ.findClassById(classId);
+            newStudent.getClasses().add(newClass);
+            studentServ.createStudent(newStudent);
+            return "redirect:/class/" + classId;
+
+    }
+	
+	@GetMapping("/student/delete/{id}/{class_id}")
+	public String deleteStudent(@PathVariable("id") Long student_id, @PathVariable("class_id") Long class_id) {
+		
+		studentServ.deleteStudent(student_id);
+		return "redirect:/class/" + class_id;
+	}
+	
+	
+	@GetMapping("/deleteJoin/{id}")
+	public String deleteJoin(@PathVariable("id") Long id, @RequestParam(name="yogaclass") Long class_id) {
+		joinServ.deleteJoin(id);
+		return "redirect:/class/" + class_id;
+	}
+	
+	
     
 }

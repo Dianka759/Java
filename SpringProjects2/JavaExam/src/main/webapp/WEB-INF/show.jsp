@@ -36,7 +36,14 @@
             <h4> Students</h4>
             <c:forEach var="i" items="${allJoins}">
             <c:if test="${i.studentInClass.id == yogaclass.id}">
-            <p> ${i.student.name} - ${i.student.email} </p>
+            <form:form action="/deleteJoin/${i.id}" method="get">
+            <div class="mb-2 border p-3">
+            <p class="text-primary"> ${i.student.name} - ${i.student.email} </p> 
+            <a href="/student/delete/${i.student.id}/${yogaclass.id}" class="btn btn-outline-danger">Delete</a> |
+            <input type="hidden"  name="yogaclass" value="${yogaclass.id}"/> 
+            <input type="submit" value="Delete from class" class="btn btn-outline-warning">
+            </div>
+            </form:form>
             </c:if>
             </c:forEach>
             </div>
@@ -44,18 +51,21 @@
             <div class="container w-75 mt-4 p-4 text-center border border-danger d-flex justify-content-evenly">
             <div>
             <h2> Add a Student </h2>
-            <p class="text-danger"> New Student </p>
+            <p class="text-success"> New Student </p>
             <form:form action="/newstudent" method="post" modelAttribute="student">
             <input type="hidden"  name="yogaclass" value="${yogaclass.id}"/>
+            <form:errors path="name" class="text-danger"/> 
             <label> Student Name</label> <br>
-            <form:input type="text" path="name"/> <br><br>
+            <form:input type="text" path="name"/> <br>
+            <form:errors path="email" class="text-danger"/> <br>
             <label>Email</label> <br>
             <form:input type="email" path="email"/> <br><br>
             <input type="submit" value="Add Student">       
             </form:form>
             </div>
             <div>
-            <h2> Existing Students </h2>
+            <h2> Existing Students </h2> 
+            <c:if test="${studentList.size() > 0}">
             <form:form action="/createJoin" method="post" modelAttribute="addStudentToClass">
             <input type="hidden"  name="yogaclass" value="${yogaclass.id}"/>
             <form:select path="student">
@@ -65,6 +75,12 @@
             </form:select> <br><br>
             <input type="submit" value="Add Student">
             </form:form>
+            </c:if>
+            
+            <c:if test="${studentList.size() == 0}">
+            NO STUDENTS
+            </c:if>
+            
             </div>
             </div>
 
